@@ -1,0 +1,95 @@
+type Stock @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  isValueRounded: Boolean
+  stockLevel: Int
+  stockLevelStatus: String
+}
+
+type LaboratoryInfo @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  code: String
+  message: String
+}
+
+type Price @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  currencyIso: String
+  formattedValue: String
+  priceType: String
+  value: Float
+}
+
+type Images @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  altText: String
+  format: String
+  imageType: String
+  url: String
+  galleryIndex: Int
+  productID: ID! @index(name: "byProduct")
+}
+
+type FeatureValues @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  value: String
+  featuresID: ID! @index(name: "byFeatures")
+}
+
+type Features @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  code: String
+  comparable: String
+  name: String
+  range: Boolean
+  classificationsID: ID! @index(name: "byClassifications")
+  FeatureValues: [FeatureValues] @hasMany(indexName: "byFeatures", fields: ["id"])
+}
+
+type Classifications @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  code: String
+  name: String
+  productID: ID! @index(name: "byProduct")
+  Features: [Features] @hasMany(indexName: "byClassifications", fields: ["id"])
+}
+
+type Categories @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  code: String
+  name: String
+  url: String
+  productID: ID! @index(name: "byProduct")
+}
+
+type Product @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  additionalDescription: String
+  antibiotic: Boolean
+  availableForPickup: Boolean
+  brandName: String
+  code: String
+  configurable: Boolean
+  description: String
+  eans: [String]
+  exclusionCode: String
+  hasDiscountPrice: Boolean
+  isLabProduct: Boolean
+  name: String
+  naturalHealth: Boolean
+  numberOfReviews: Int
+  potentialPromotions: [String]
+  presentation: String
+  productReferences: [String]
+  providerName: String
+  purchasable: Boolean
+  registrationDate: String
+  summary: String
+  url: String
+  Categories: [Categories] @hasMany(indexName: "byProduct", fields: ["id"])
+  Classifications: [Classifications] @hasMany(indexName: "byProduct", fields: ["id"])
+  Images: [Images] @hasMany(indexName: "byProduct", fields: ["id"])
+  Price: Price @hasOne
+  LaboratoryInfo: LaboratoryInfo @hasOne
+  Stock: Stock @hasOne
+  basePrice: Price @hasOne
+} 

@@ -1,0 +1,12 @@
+{
+  "AppSyncApiName": "pharmaadmin2",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authpharmaadmin2cdd05f4b",
+      "Outputs.UserPoolId"
+    ]
+  },
+  "AuthModeLastUpdated": "2023-10-13T06:00:54.919Z"
+}
