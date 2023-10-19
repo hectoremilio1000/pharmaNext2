@@ -10,7 +10,8 @@ import awsmobile from "../aws-exports";  // Asegúrate de proporcionar la ruta c
 const logger = new Logger('S3Uploader')
 
 function Login({ signOut, user }) {
-    console.log(process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID, process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY)
+    const [startIndex, setStartIndex] = useState(0);
+  
 
     const s3Client = new S3Client({
         region: awsmobile.aws_project_region,
@@ -35,8 +36,8 @@ function Login({ signOut, user }) {
             });
             logger.info('Intentando subir imagen:', nombre);
             await s3Client.send(putCommand);
-            console.log(`Imagen ${nombre} subida con éxito.`);
-            logger.info(`Imagen ${nombre} subida con éxito.`);
+            // console.log(`Imagen ${nombre} subida con éxito.`);
+            // logger.info(`Imagen ${nombre} subida con éxito.`);
         } catch (error) {
             console.error(`Error subiendo imagen ${nombre}:`, error);
             logger.error(`Error subiendo imagen ${nombre}:`, error);
@@ -49,20 +50,30 @@ function Login({ signOut, user }) {
 
         // Si hay productos disponibles en el JSON, solo subirás la primera imagen
         if (productos && productos.length > 0) {
-            const producto = productos[0];  // Solo tomas el primer producto
-            const url = producto.images.find(image => image.format === "product").url;
-            const nombre = `${producto.name}_${producto.id}`.replace(/ /g, '-');
-            await subirImagen(url, nombre);
-
+            for (let i = startIndex; i < endIndex; i++) {  // Iterar sobre todos los productos
+                const producto = productos[i];
+                const url = producto.images.find(image => image.format === "product").url;
+                const nombre = `${producto.name}_${producto.id}`.replace(/ /g, '-');
+                await subirImagen(url, nombre);
+            }
+            if (endIndex < productos.length) {
+                setStartIndex(endIndex);
+            } else {
+                // Resetea el índice de inicio si todos los productos han sido procesados
+                setStartIndex(0);
+            }
         } else {
             console.error('No hay productos en el archivo JSON.');
+            logger(error);
         }
     };
 
     return (
       <div>
     
-            <Button onClick={handleSubirImagenes}>Subir Imágenes</Button>
+            <Button onClick={handleSubirImagenes}>
+                {startIndex === 0 ? "Subir primeros 500" : "Subir siguientes 500"}
+            </Button>
 
             <Button onClick={signOut}>Sign out</Button>
         </div>

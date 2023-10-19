@@ -1,19 +1,33 @@
 {
   "staging": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-pharmaadmin2-staging-15356-authRole",
-      "UnauthRoleArn": "arn:aws:iam::648055517850:role/amplify-pharmaadmin2-staging-15356-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::648055517850:role/amplify-pharmaadmin2-staging-15356-authRole",
+      "AuthRoleName": "amplify-pharmaadmin3-staging-202359-authRole",
+      "UnauthRoleArn": "arn:aws:iam::648055517850:role/amplify-pharmaadmin3-staging-202359-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::648055517850:role/amplify-pharmaadmin3-staging-202359-authRole",
       "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-pharmaadmin2-staging-15356-deployment",
-      "UnauthRoleName": "amplify-pharmaadmin2-staging-15356-unauthRole",
-      "StackName": "amplify-pharmaadmin2-staging-15356",
-      "StackId": "arn:aws:cloudformation:us-east-1:648055517850:stack/amplify-pharmaadmin2-staging-15356/5f215060-696b-11ee-b954-0eb10f2bb6ff",
-      "AmplifyAppId": "d3tre5u087vcix"
+      "DeploymentBucketName": "amplify-pharmaadmin3-staging-202359-deployment",
+      "UnauthRoleName": "amplify-pharmaadmin3-staging-202359-unauthRole",
+      "StackName": "amplify-pharmaadmin3-staging-202359",
+      "StackId": "arn:aws:cloudformation:us-east-1:648055517850:stack/amplify-pharmaadmin3-staging-202359/4593dc70-6df4-11ee-9d44-0e831084841f",
+      "AmplifyAppId": "d14uuvmt0zdvbp",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-pharmaadmin3-staging-202359-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
+      "function": {
+        "pharmaAdmin3PostConfirmation": {
+          "GROUP": "CLIENTES",
+          "deploymentBucketName": "amplify-pharmaadmin3-staging-202359-deployment",
+          "s3Key": "amplify-builds/pharmaAdmin3PostConfirmation-6f4746777a4a31435158-build.zip"
+        }
+      },
+      "storage": {
+        "pharmaadmin32703652d": {
+          "bucketName": "pharmaadmind17cdaaa44b744eebe897721cdc34e8f113227-dev",
+          "region": "us-east-1"
+        }
+      },
       "auth": {
-        "pharmaadmin2cdd05f4b": {},
+        "pharmaAdmin3": {},
         "userPoolGroups": {}
       }
     }

@@ -4,16 +4,12 @@ import { schema } from './schema';
 
 
 
-const { Stock, LaboratoryInfo, Price, Images, FeatureValues, Features, Classifications, Categories, Product } = initSchema(schema);
+const { Product, ImageInfo, FeatureInfo, ClassificationInfo, CategoryInfo } = initSchema(schema);
 
 export {
-  Stock,
-  LaboratoryInfo,
-  Price,
-  Images,
-  FeatureValues,
-  Features,
-  Classifications,
-  Categories,
-  Product
+  Product,
+  ImageInfo,
+  FeatureInfo,
+  ClassificationInfo,
+  CategoryInfo
 };

@@ -36,6 +36,16 @@ export declare type ProductUpdateFormInputValues = {
     registrationDate?: string;
     summary?: string;
     url?: string;
+    priceCurrencyIso?: string;
+    priceFormattedValue?: string;
+    priceType?: string;
+    priceValue?: number;
+    labInfoCode?: string;
+    labInfoMessage?: string;
+    stockIsValueRounded?: boolean;
+    stockLevel?: number;
+    stockLevelStatus?: string;
+    numero?: number;
 };
 export declare type ProductUpdateFormValidationValues = {
     additionalDescription?: ValidationFunction<string>;
@@ -60,6 +70,16 @@ export declare type ProductUpdateFormValidationValues = {
     registrationDate?: ValidationFunction<string>;
     summary?: ValidationFunction<string>;
     url?: ValidationFunction<string>;
+    priceCurrencyIso?: ValidationFunction<string>;
+    priceFormattedValue?: ValidationFunction<string>;
+    priceType?: ValidationFunction<string>;
+    priceValue?: ValidationFunction<number>;
+    labInfoCode?: ValidationFunction<string>;
+    labInfoMessage?: ValidationFunction<string>;
+    stockIsValueRounded?: ValidationFunction<boolean>;
+    stockLevel?: ValidationFunction<number>;
+    stockLevelStatus?: ValidationFunction<string>;
+    numero?: ValidationFunction<number>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ProductUpdateFormOverridesProps = {
@@ -86,6 +106,16 @@ export declare type ProductUpdateFormOverridesProps = {
     registrationDate?: PrimitiveOverrideProps<TextFieldProps>;
     summary?: PrimitiveOverrideProps<TextFieldProps>;
     url?: PrimitiveOverrideProps<TextFieldProps>;
+    priceCurrencyIso?: PrimitiveOverrideProps<TextFieldProps>;
+    priceFormattedValue?: PrimitiveOverrideProps<TextFieldProps>;
+    priceType?: PrimitiveOverrideProps<TextFieldProps>;
+    priceValue?: PrimitiveOverrideProps<TextFieldProps>;
+    labInfoCode?: PrimitiveOverrideProps<TextFieldProps>;
+    labInfoMessage?: PrimitiveOverrideProps<TextFieldProps>;
+    stockIsValueRounded?: PrimitiveOverrideProps<SwitchFieldProps>;
+    stockLevel?: PrimitiveOverrideProps<TextFieldProps>;
+    stockLevelStatus?: PrimitiveOverrideProps<TextFieldProps>;
+    numero?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type ProductUpdateFormProps = React.PropsWithChildren<{
     overrides?: ProductUpdateFormOverridesProps | undefined | null;
