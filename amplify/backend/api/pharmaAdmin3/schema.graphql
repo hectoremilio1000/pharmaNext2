@@ -1,3 +1,9 @@
+type CLIENTESS @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  username: String
+  nombre: String
+}
+
 type DETALLEPEDIDO @model @auth(rules: [{allow: public}]) {
   id: ID!
   cantidad: String

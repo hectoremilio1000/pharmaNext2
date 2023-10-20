@@ -17,7 +17,7 @@
         "pharmaAdmin3PostConfirmation": {
           "GROUP": "CLIENTES",
           "deploymentBucketName": "amplify-pharmaadmin3-staging-202359-deployment",
-          "s3Key": "amplify-builds/pharmaAdmin3PostConfirmation-6f4746777a4a31435158-build.zip"
+          "s3Key": "amplify-builds/pharmaAdmin3PostConfirmation-4c434d4263586d717969-build.zip"
         }
       },
       "storage": {
@@ -29,6 +29,9 @@
       "auth": {
         "pharmaAdmin3": {},
         "userPoolGroups": {}
+      },
+      "api": {
+        "pharmaAdmin3": {}
       }
     }
   }

@@ -1,6 +1,25 @@
 const aws = require('aws-sdk');
 const cognitoidentityserviceprovider = new aws.CognitoIdentityServiceProvider({ apiVersion: '2016-04-18' });
-const dynamodb = new aws.DynamoDB.DocumentClient();
+const dynamodbDocumentClient = new aws.DynamoDB.DocumentClient();
+
+const insertClientInDynamoDB = async ({ Username }) => {
+  const tableName = 'CLIENTESS';
+  const params = {
+    TableName: tableName,
+    Item: {
+      'id': Username,  // Asumo que deseas usar el Username como ID. Si tienes otro ID, ajusta aquí.
+      'username': Username,
+      'nombre': 'Especifica el nombre aquí'  // Puedes especificar el nombre aquí o ajustar según tu lógica.
+    },
+  };
+
+  try {
+    await dynamodbDocumentClient.put(params).promise();
+    console.log(`[DYNAMODB] Inserted client ${Username}`);
+  } catch (error) {
+    console.error(`[DYNAMODB] Failed to insert client ${Username}`, error);
+  }
+}
 
 const addToGroup = async ({ GroupName, UserPoolId, Username }) => {
   const groupParams = {
@@ -25,22 +44,6 @@ const addToGroup = async ({ GroupName, UserPoolId, Username }) => {
 
   await cognitoidentityserviceprovider.adminAddUserToGroup(addUserParams).promise();
   console.log(`[ADD-TO-GROUP] Added ${Username} to the group ${GroupName}`);
-}
-
-const insertClientInDynamoDB = async ({ Username }) => {
-  const params = {
-    TableName: 'CLIENTES',
-    Item: {
-      'id': Username,
-    },
-  };
-
-  try {
-    await dynamodb.put(params).promise();
-    console.log(`[DYNAMODB] Inserted client ${Username}`);
-  } catch (error) {
-    console.error(`[DYNAMODB] Failed to insert client ${Username}`, error);
-  }
 }
 
 exports.handler = async event => {
