@@ -1,25 +1,6 @@
 const aws = require('aws-sdk');
 const cognitoidentityserviceprovider = new aws.CognitoIdentityServiceProvider({ apiVersion: '2016-04-18' });
-const dynamodbDocumentClient = new aws.DynamoDB.DocumentClient();
-
-const insertClientInDynamoDB = async ({ Username }) => {
-  const tableName = 'CLIENTESS';
-  const params = {
-    TableName: tableName,
-    Item: {
-      'id': Username,  // Asumo que deseas usar el Username como ID. Si tienes otro ID, ajusta aquí.
-      'username': Username,
-      'nombre': 'Especifica el nombre aquí'  // Puedes especificar el nombre aquí o ajustar según tu lógica.
-    },
-  };
-
-  try {
-    await dynamodbDocumentClient.put(params).promise();
-    console.log(`[DYNAMODB] Inserted client ${Username}`);
-  } catch (error) {
-    console.error(`[DYNAMODB] Failed to insert client ${Username}`, error);
-  }
-}
+const dynamodb = new aws.DynamoDB({ region: 'us-east-1' });
 
 const addToGroup = async ({ GroupName, UserPoolId, Username }) => {
   const groupParams = {
@@ -47,6 +28,28 @@ const addToGroup = async ({ GroupName, UserPoolId, Username }) => {
 }
 
 exports.handler = async event => {
+
+  const tableName = "CLIENTES-zt6q2d73hvdo7k5766u4qkzxge-staging";
+  const currentISODate = new Date().toISOString();
+
+  try {
+    await dynamodb.putItem({
+      TableName: tableName,
+      Item: {
+        id: { S: event.userName },
+        farmaciaID: { S: 'e89d3ab0-a997-4296-9cb6-b53e2d111c75' },
+        createdAt: {
+          S: currentISODate
+        },
+        updatedAt: { S: currentISODate }
+      }
+    }).promise();
+    console.log(`[DYNAMODB] Inserted client ${event.userName}`)
+  } catch (error) {
+    console.error(`[DYNAMODB] Failed to insert client ${event.userName}`, error);
+  }
+
+
   let groupName = 'CLIENTES'; // Nombre del grupo en Cognito
 
   await addToGroup({
@@ -54,8 +57,6 @@ exports.handler = async event => {
     UserPoolId: event.userPoolId,
     Username: event.userName
   });
-
-  await insertClientInDynamoDB({ Username: event.userName });
-
   return event;
 };
+
